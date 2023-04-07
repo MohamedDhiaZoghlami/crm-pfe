@@ -1,5 +1,6 @@
 package com.crm.pfe.services;
 
+import com.crm.pfe.entities.Contact;
 import com.crm.pfe.entities.Customer;
 import com.crm.pfe.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer Not Found"));
+    }
+
+    @Override
+    public List<Contact> getAllContactsByCustomerId(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer Not Found"));
+        return customer.getContacts();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.crm.pfe.controllers;
 
+import com.crm.pfe.entities.Contact;
 import com.crm.pfe.entities.Customer;
 import com.crm.pfe.services.CustomerService;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,10 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
+    @GetMapping("/contacts/{id}")
+    public List<Contact> getAllContactsByCustomerId(@PathVariable Long id) {
+        return customerService.getAllContactsByCustomerId(id);
+    }
     @PutMapping("/update/{id}")
     public Customer updateCustomer(@RequestBody Customer customer, @PathVariable Long id) {
         return customerService.updateCustomer(id,customer);

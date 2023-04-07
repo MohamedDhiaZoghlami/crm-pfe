@@ -34,7 +34,7 @@ public class ContactServiceImpl implements  ContactService{
 
     @Override
     public Contact updateContact(Long id, Contact contact) {
-        return contactRepository.findById(id).map(c -> {
+        return contactRepository.findById(id).map(c->{
            c.setFirstName(contact.getFirstName());
            c.setLastName(contact.getLastName());
            c.setEmail(contact.getEmail());
