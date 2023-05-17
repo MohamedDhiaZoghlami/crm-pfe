@@ -21,6 +21,6 @@ public class OpAssignment {
     @OneToOne
     @JoinColumn(name="opportunity_id")
     private Opportunity opportunity;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    /*@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<User> users = new ArrayList<>();*/
 }
