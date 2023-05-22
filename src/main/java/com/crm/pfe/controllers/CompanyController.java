@@ -1,14 +1,10 @@
 package com.crm.pfe.controllers;
 
 import com.crm.pfe.entities.Company;
-import com.crm.pfe.entities.Contact;
-import com.crm.pfe.entities.Customer;
 import com.crm.pfe.services.CompanyService;
-import com.crm.pfe.services.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/company")
