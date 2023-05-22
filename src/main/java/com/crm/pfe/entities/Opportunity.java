@@ -1,6 +1,6 @@
 package com.crm.pfe.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +25,10 @@ public class Opportunity {
     private String Status;
     @ManyToOne
     @JoinColumn(name="customer_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
     @ManyToOne
     @JoinColumn(name="contact_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Contact contact;
 }

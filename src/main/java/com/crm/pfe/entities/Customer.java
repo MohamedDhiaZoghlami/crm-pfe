@@ -22,4 +22,5 @@ public class Customer {
     private String phone;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
+
 }
