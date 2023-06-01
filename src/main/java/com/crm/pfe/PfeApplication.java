@@ -2,6 +2,9 @@ package com.crm.pfe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class PfeApplication {
@@ -10,4 +13,9 @@ public class PfeApplication {
 		SpringApplication.run(PfeApplication.class, args);
 	}
 
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
+
