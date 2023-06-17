@@ -4,8 +4,15 @@ import com.crm.pfe.entities.Contact;
 import com.crm.pfe.entities.Customer;
 import com.crm.pfe.services.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -16,13 +23,15 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/create")
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public ResponseEntity<Customer> createCustomer(@Validated @RequestBody Customer customer) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/customers/create").toUriString());
+        return ResponseEntity.created(uri).body(customerService.createCustomer(customer));
     }
 
     @GetMapping("/all")
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    public Page<Customer> getAllCustomers(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page,10);
+        return customerService.getAllCustomers(pageable);
     }
 
     @GetMapping("/{id}")

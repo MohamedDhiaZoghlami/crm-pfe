@@ -47,6 +47,12 @@ public class UserController {
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
+    @PostMapping("/getUser")
+    public ResponseEntity<User> getUserDetails(@RequestBody Username username) {
+        User user = userService.getUser(username.getUsername());
+        return ResponseEntity.ok().body(user);
+    }
+
     @PostMapping("/role/create")
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/role/create").toUriString());
@@ -102,4 +108,9 @@ public class UserController {
 class RoleToUserForm {
     private String username;
     private String roleName;
+}
+
+@Data
+class Username {
+    private String username;
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="CONTACT")
@@ -21,6 +22,10 @@ public class Contact {
     private String lastName;
     private String email;
     private String phone;
+    private String created_By;
+    private String last_updated_By;
+    private Date created_at;
+    private Date last_updated_at;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id")
     @JsonIgnore
