@@ -42,6 +42,11 @@ public class CustomerServiceImpl implements CustomerService {
             c.setName(customer.getName());
             c.setEmail(customer.getEmail());
             c.setPhone(customer.getPhone());
+            c.setAdress(customer.getAdress());
+            c.setCreated_By(customer.getCreated_By());
+            c.setCreated_at(customer.getCreated_at());
+            c.setLast_updated_at(customer.getLast_updated_at());
+            c.setLast_updated_By(customer.getLast_updated_By());
             return customerRepository.save(c);
         }).orElseThrow(() -> new RuntimeException("Customer Not Found"));
     }
