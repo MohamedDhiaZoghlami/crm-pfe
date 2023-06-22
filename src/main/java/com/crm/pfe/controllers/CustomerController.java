@@ -28,6 +28,10 @@ public class CustomerController {
         return ResponseEntity.created(uri).body(customerService.createCustomer(customer));
     }
 
+    @GetMapping("/Once")
+    public List<Customer> getAllCustomersOnce() {
+        return customerService.getAllCustomersOnce();
+    }
     @GetMapping("/all")
     public Page<Customer> getAllCustomers(@RequestParam int page) {
         Pageable pageable = PageRequest.of(page,10);

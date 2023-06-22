@@ -10,6 +10,7 @@ import java.util.List;
 public interface CustomerService {
     Customer createCustomer(Customer customer);
 
+    List<Customer> getAllCustomersOnce();
     Page<Customer> getAllCustomers(Pageable pageable);
 
     Customer getCustomerById(Long id);

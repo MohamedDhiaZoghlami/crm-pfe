@@ -5,6 +5,8 @@ import com.crm.pfe.entities.Customer;
 import com.crm.pfe.repository.ContactRepository;
 import com.crm.pfe.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +25,8 @@ public class ContactServiceImpl implements  ContactService{
     }
 
     @Override
-    public List<Contact> getAllContacts() {
-        return contactRepository.findAll();
+    public Page<Contact> getAllContacts(Pageable pageable) {
+        return contactRepository.findAll(pageable);
     }
 
     @Override
@@ -40,6 +42,10 @@ public class ContactServiceImpl implements  ContactService{
            c.setEmail(contact.getEmail());
            c.setPhone(contact.getPhone());
            c.setCustomer(contact.getCustomer());
+           c.setCreated_at(contact.getCreated_at());
+           c.setCreated_By(contact.getCreated_By());
+           c.setLast_updated_By(contact.getLast_updated_By());
+           c.setLast_updated_at(contact.getLast_updated_at());
            return contactRepository.save(c);
         }).orElseThrow(() -> new RuntimeException("Contact Not Found"));
     }

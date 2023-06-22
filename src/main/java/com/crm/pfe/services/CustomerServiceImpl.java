@@ -21,6 +21,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> getAllCustomersOnce() {
+        return customerRepository.findAll();
+    };
+    @Override
     public Page<Customer> getAllCustomers(Pageable pageable) {
         return customerRepository.findAll(pageable);
     }
