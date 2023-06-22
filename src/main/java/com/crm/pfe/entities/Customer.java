@@ -1,5 +1,6 @@
 package com.crm.pfe.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ public class Customer {
     @NotNull
     private Date last_updated_at;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Contact> contacts = new ArrayList<>();
 
 }

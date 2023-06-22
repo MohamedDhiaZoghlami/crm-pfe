@@ -2,6 +2,7 @@ package com.crm.pfe.entities;
 
 import com.crm.pfe.entities.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,6 @@ public class Contact {
     private Date last_updated_at;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
 }
