@@ -1,5 +1,7 @@
 package com.crm.pfe.entities;
 
+import com.crm.pfe.enums.OpportunityStage;
+import com.crm.pfe.enums.OpportunityValue;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +23,14 @@ public class Opportunity {
     private String description;
     private String file;
     private Date expected_close_date;
-    private String Value;
-    private String Status;
+    @Enumerated(EnumType.STRING)
+    private OpportunityStage stage;
+    @Enumerated(EnumType.STRING)
+    private OpportunityValue value;
+    private String created_By;
+    private String last_updated_By;
+    private Date created_at;
+    private Date last_updated_at;
     @ManyToOne
     @JoinColumn(name="customer_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

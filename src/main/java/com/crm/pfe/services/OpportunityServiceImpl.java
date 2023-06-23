@@ -45,7 +45,11 @@ public class OpportunityServiceImpl implements OpportunityService{
             o.setFile(opportunity.getFile());
             o.setExpected_close_date(opportunity.getExpected_close_date());
             o.setValue(opportunity.getValue());
-            o.setStatus(opportunity.getStatus());
+            o.setStage(opportunity.getStage());
+            o.setCreated_at(opportunity.getCreated_at());
+            o.setCreated_By(opportunity.getCreated_By());
+            o.setLast_updated_By(opportunity.getLast_updated_By());
+            o.setLast_updated_at(opportunity.getLast_updated_at());
             return opportunityRepository.save(o);
         }).orElseThrow(()->new RuntimeException("opp not found"));
     }
