@@ -10,6 +10,9 @@ import com.crm.pfe.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,6 +66,16 @@ public class UserController {
     public ResponseEntity<?> saveRole(@RequestBody RoleToUserForm form) {
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/allRoles")
+    public ResponseEntity<List<Role>> getAllRoles() {
+        return ResponseEntity.ok().body(userService.getAllRoles());
+    }
+    @GetMapping("/allUsers")
+    public Page<User> getAllUsers(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page,10);
+        return userService.getAllUsers(pageable);
     }
 
     @GetMapping("/token/refresh")
