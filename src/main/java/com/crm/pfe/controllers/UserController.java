@@ -56,6 +56,11 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
+    }
+
     @PostMapping("/role/create")
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/role/create").toUriString());

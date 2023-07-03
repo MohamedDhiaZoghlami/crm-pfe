@@ -46,6 +46,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
     @Override
     public User saveUser(User user) {
+        User testUser = userRepository.findByUsername(user.getUsername());
+        if(testUser!=null) {
+            throw new RuntimeException("User already exist");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
@@ -76,5 +80,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public String deleteUser(Long id) {
+        userRepository.deleteById(id);
+        return "User deleted successfully!";
     }
 }

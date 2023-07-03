@@ -20,4 +20,6 @@ public interface UserService {
 
     List<Role> getAllRoles();
     List<User> getUsers();
+
+    String deleteUser(Long id);
 }
