@@ -1,5 +1,6 @@
 package com.crm.pfe.entities;
 
+import com.crm.pfe.enums.OpportunityDecision;
 import com.crm.pfe.enums.OpportunityStage;
 import com.crm.pfe.enums.OpportunityValue;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,16 +28,16 @@ public class Opportunity {
     private OpportunityStage stage;
     @Enumerated(EnumType.STRING)
     private OpportunityValue value;
+    @Enumerated(EnumType.STRING)
+    private OpportunityDecision opportunityDecision;
+    private String fromWhere;
     private String created_By;
     private String last_updated_By;
     private Date created_at;
     private Date last_updated_at;
+
     @ManyToOne
     @JoinColumn(name="customer_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
-    @ManyToOne
-    @JoinColumn(name="contact_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Contact contact;
 }
