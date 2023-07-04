@@ -3,6 +3,9 @@ package com.crm.pfe.controllers;
 import com.crm.pfe.entities.Opportunity;
 import com.crm.pfe.services.OpportunityService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,14 +16,26 @@ import java.util.List;
 public class OpportunityController {
     private final OpportunityService opportunityService;
 
-    @PostMapping("/create/{idCustomer}/{idContact}")
-    public Opportunity createOpportunity(@PathVariable Long idCustomer, @PathVariable Long idContact, @RequestBody Opportunity opportunity) {
-        return opportunityService.createOpportunity(idCustomer,idContact,opportunity);
+    @PostMapping("/create/{idCustomer}")
+    public Opportunity createOpportunity(@PathVariable Long idCustomer, @RequestBody Opportunity opportunity) {
+        return opportunityService.createOpportunity(idCustomer, opportunity);
     }
 
     @GetMapping("/all")
-    public List<Opportunity> getAllOpportunities() {
-        return opportunityService.getAllOpportunities();
+    public Page<Opportunity> getAllOpportunities(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page,10);
+
+        return opportunityService.getAllOpportunities(pageable);
+    }
+
+    @GetMapping("/once")
+    public List<Opportunity> getAllAtonce() {
+        return opportunityService.getAllOpportnitiesOnce();
+    }
+
+    @GetMapping("/recentlyAdded")
+    public List<Opportunity> getNewAddedOpp() {
+        return opportunityService.getNewAddedOpportunities();
     }
 
     @GetMapping("/{id}")

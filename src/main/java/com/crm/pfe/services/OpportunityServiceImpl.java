@@ -7,9 +7,13 @@ import com.crm.pfe.repository.ContactRepository;
 import com.crm.pfe.repository.CustomerRepository;
 import com.crm.pfe.repository.OpportunityRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -19,19 +23,29 @@ public class OpportunityServiceImpl implements OpportunityService{
     public final ContactRepository contactRepository;
 
     @Override
-    public Opportunity createOpportunity(Long idCustomer, Long idContact, Opportunity opportunity) {
+    public Opportunity createOpportunity(Long idCustomer, Opportunity opportunity) {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(()->new RuntimeException("Customer not found"));
-        Contact contact = contactRepository.findById(idContact).orElseThrow(()->new RuntimeException("Contact not found"));
         opportunity.setCustomer(customer);
-        opportunity.setContact(contact);
         return opportunityRepository.save(opportunity);
     }
 
     @Override
-    public List<Opportunity> getAllOpportunities() {
-        return opportunityRepository.findAll();
+    public Page<Opportunity> getAllOpportunities(Pageable pageable) {
+        return opportunityRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Opportunity> getAllOpportnitiesOnce() {
+        return opportunityRepository.findAll();
+    }
+    @Override
+    public List<Opportunity> getNewAddedOpportunities() {
+        List<Opportunity> allOpp = opportunityRepository.findAll();
+        List<Opportunity> newlyAdded = allOpp.stream()
+                .filter(obj -> obj.getStage().name().equals("New"))
+                .collect(Collectors.toList());
+        return newlyAdded;
+    }
     @Override
     public Opportunity getOpportunityById(Long id) {
         return opportunityRepository.findById(id).orElseThrow(()->new RuntimeException("opp not found"));
@@ -46,6 +60,7 @@ public class OpportunityServiceImpl implements OpportunityService{
             o.setExpected_close_date(opportunity.getExpected_close_date());
             o.setValue(opportunity.getValue());
             o.setStage(opportunity.getStage());
+            o.setDecision(opportunity.getDecision());
             o.setCreated_at(opportunity.getCreated_at());
             o.setCreated_By(opportunity.getCreated_By());
             o.setLast_updated_By(opportunity.getLast_updated_By());

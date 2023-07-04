@@ -29,7 +29,7 @@ public class Opportunity {
     @Enumerated(EnumType.STRING)
     private OpportunityValue value;
     @Enumerated(EnumType.STRING)
-    private OpportunityDecision opportunityDecision;
+    private OpportunityDecision decision;
     private String fromWhere;
     private String created_By;
     private String last_updated_By;
