@@ -2,7 +2,8 @@ package com.crm.pfe.enums;
 
 public enum OpportunityStage {
     New,
-    Prospecting,
+    Deciding,
+    Assigned,
     Working_on,
     Negotiation,
     Closed_won,

@@ -3,6 +3,7 @@ package com.crm.pfe.services;
 import com.crm.pfe.entities.Contact;
 import com.crm.pfe.entities.Customer;
 import com.crm.pfe.entities.Opportunity;
+import com.crm.pfe.enums.OpportunityStage;
 import com.crm.pfe.repository.ContactRepository;
 import com.crm.pfe.repository.CustomerRepository;
 import com.crm.pfe.repository.OpportunityRepository;
@@ -48,6 +49,12 @@ public class OpportunityServiceImpl implements OpportunityService{
     }
     @Override
     public Opportunity getOpportunityById(Long id) {
+        Opportunity opp = opportunityRepository.findById(id).orElseThrow(()->new RuntimeException("opp not found"));
+        if(opp.getStage().name().equals("New")) {
+            OpportunityStage stage = OpportunityStage.Deciding;
+            opp.setStage(stage);
+            opportunityRepository.save(opp);
+        }
         return opportunityRepository.findById(id).orElseThrow(()->new RuntimeException("opp not found"));
     }
 
