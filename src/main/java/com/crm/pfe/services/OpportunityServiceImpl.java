@@ -68,6 +68,7 @@ public class OpportunityServiceImpl implements OpportunityService{
             o.setValue(opportunity.getValue());
             o.setStage(opportunity.getStage());
             o.setDecision(opportunity.getDecision());
+            o.setFromWhere(opportunity.getFromWhere());
             o.setCreated_at(opportunity.getCreated_at());
             o.setCreated_By(opportunity.getCreated_By());
             o.setLast_updated_By(opportunity.getLast_updated_By());
