@@ -21,5 +21,7 @@ public interface UserService {
     List<Role> getAllRoles();
     List<User> getUsers();
 
+    List<User> getAllCommercialAgents();
+
     String deleteUser(Long id);
 }

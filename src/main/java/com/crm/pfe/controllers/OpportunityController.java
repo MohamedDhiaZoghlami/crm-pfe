@@ -35,7 +35,7 @@ public class OpportunityController {
 
     @GetMapping("/recentlyAdded")
     public List<Opportunity> getNewAddedOpp() {
-        return opportunityService.getNewAddedOpportunities();
+        return opportunityService.getAllNewOpportunities();
     }
 
     @GetMapping("/{id}")

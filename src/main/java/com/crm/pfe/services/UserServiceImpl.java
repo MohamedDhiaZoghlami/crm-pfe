@@ -83,6 +83,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<User> getAllCommercialAgents() {
+        return userRepository.findAllCommercial();
+    }
+
+    @Override
     public String deleteUser(Long id) {
         userRepository.deleteById(id);
         return "User deleted successfully!";

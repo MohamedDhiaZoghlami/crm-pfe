@@ -12,7 +12,8 @@ public interface OpportunityService {
     List<Opportunity> getAllOpportnitiesOnce();
     Page<Opportunity> getAllOpportunities(Pageable pageable);
 
-    List<Opportunity> getNewAddedOpportunities();
+    List<Opportunity> getAllNewOpportunities();
+
 
     Opportunity getOpportunityById(Long id);
 

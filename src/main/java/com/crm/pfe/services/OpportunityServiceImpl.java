@@ -40,12 +40,8 @@ public class OpportunityServiceImpl implements OpportunityService{
         return opportunityRepository.findAll();
     }
     @Override
-    public List<Opportunity> getNewAddedOpportunities() {
-        List<Opportunity> allOpp = opportunityRepository.findAll();
-        List<Opportunity> newlyAdded = allOpp.stream()
-                .filter(obj -> obj.getStage().name().equals("New"))
-                .collect(Collectors.toList());
-        return newlyAdded;
+    public List<Opportunity> getAllNewOpportunities() {
+        return opportunityRepository.findAllNewOpportunities();
     }
     @Override
     public Opportunity getOpportunityById(Long id) {

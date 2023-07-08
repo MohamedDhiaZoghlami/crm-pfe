@@ -56,6 +56,11 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping("/commercials")
+    public List<User> getAllCommercialAgents() {
+        return userService.getAllCommercialAgents();
+    }
+
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
