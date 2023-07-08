@@ -30,6 +30,7 @@ public class Opportunity {
     private OpportunityValue value;
     @Enumerated(EnumType.STRING)
     private OpportunityDecision decision;
+    private String agent;
     private String fromWhere;
     private String created_By;
     private String last_updated_By;
