@@ -28,6 +28,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final EmailSenderService emailSenderService;
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -50,6 +53,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(testUser!=null) {
             throw new RuntimeException("User already exist");
         }
+        String body = String.format("Your account has been created with the password of : %s ",user.getPassword());
+        emailSenderService.sendEmail(user.getUsername(),"Account created",body);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);

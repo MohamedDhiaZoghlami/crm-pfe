@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.crm.pfe.entities.Role;
 import com.crm.pfe.entities.User;
+import com.crm.pfe.services.EmailSenderService;
 import com.crm.pfe.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -38,6 +39,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final EmailSenderService emailSenderService;
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getUsers() {
