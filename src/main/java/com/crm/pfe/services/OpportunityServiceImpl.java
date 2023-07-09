@@ -44,6 +44,10 @@ public class OpportunityServiceImpl implements OpportunityService{
         return opportunityRepository.findAllNewOpportunities();
     }
     @Override
+    public List<Opportunity> getAllByAgentName(String agent) {
+        return opportunityRepository.findAllByAgent(agent);
+    }
+    @Override
     public Opportunity getOpportunityById(Long id) {
         Opportunity opp = opportunityRepository.findById(id).orElseThrow(()->new RuntimeException("opp not found"));
         if(opp.getStage().name().equals("New")) {

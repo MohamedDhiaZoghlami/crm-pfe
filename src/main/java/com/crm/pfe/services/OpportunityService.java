@@ -14,6 +14,8 @@ public interface OpportunityService {
 
     List<Opportunity> getAllNewOpportunities();
 
+    List<Opportunity> getAllByAgentName(String agent);
+
 
     Opportunity getOpportunityById(Long id);
 

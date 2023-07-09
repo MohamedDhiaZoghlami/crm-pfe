@@ -38,6 +38,11 @@ public class OpportunityController {
         return opportunityService.getAllNewOpportunities();
     }
 
+    @GetMapping("/agent/{username}")
+    public List<Opportunity> getAllByAgent(@PathVariable String username) {
+        return opportunityService.getAllByAgentName(username);
+    }
+
     @GetMapping("/{id}")
     public Opportunity getOpportunityById(@PathVariable Long id) {
         return opportunityService.getOpportunityById(id);
