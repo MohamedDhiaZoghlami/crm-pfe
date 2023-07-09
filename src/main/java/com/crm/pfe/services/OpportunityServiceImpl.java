@@ -22,6 +22,7 @@ public class OpportunityServiceImpl implements OpportunityService{
     public final OpportunityRepository opportunityRepository;
     public final CustomerRepository customerRepository;
     public final ContactRepository contactRepository;
+    private final EmailSenderService emailSenderService;
 
     @Override
     public Opportunity createOpportunity(Long idCustomer, Opportunity opportunity) {
@@ -60,6 +61,11 @@ public class OpportunityServiceImpl implements OpportunityService{
 
     @Override
     public Opportunity updateOpportunity(Long id, Opportunity opportunity) {
+        Opportunity opp = opportunityRepository.findById(id).orElseThrow(()->new RuntimeException("opp not found"));
+        if(!opp.getStage().name().equals("Assigned") && opportunity.getStage().name().equals("Assigned")) {
+            String body = String.format("You were assigned to the opportunity : %s ",opportunity.getName());
+            emailSenderService.sendEmail(opportunity.getAgent(),"Opportunity assignment",body);
+        }
         return opportunityRepository.findById(id).map(o->{
             o.setName(opportunity.getName());
             o.setDescription(opportunity.getDescription());
