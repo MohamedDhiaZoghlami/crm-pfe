@@ -21,7 +21,7 @@ export class CodeSourceStage extends Stage {
             owner: "MohamedDhiaZoghlami",
             actionName: "sourceFromCodeCommit",
             output: new codepipeline.Artifact("Source"),
-            branch: 'main',
+            branch: 'master',
             repo: "crm-pfe",
             oauthToken: sv.unsafePlainText(props.githubToken),
             trigger: actions.GitHubTrigger.WEBHOOK
