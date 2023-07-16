@@ -90,9 +90,7 @@ export class CRMBackendPipelineStack extends Stack {
         },
       }),
       environmentVariables: {
-        // REACT_APP_CRM_ASSETS_BUCKET_NAME: { type: BuildEnvironmentVariableType.PLAINTEXT, value: CRM_ASSETS_BUCKET_NAME },
         REACT_APP_REGION: { type: BuildEnvironmentVariableType.PLAINTEXT, value: this.region },
-        // REACT_APP_CRM_ASSETS_DISTRIBUTION_DOMAIN: { type: BuildEnvironmentVariableType.PLAINTEXT, value: CRM_ASSETS_DISTRIBUTION_DOMAIN },
         cluster_name: { type: BuildEnvironmentVariableType.PLAINTEXT, value: `${props.crm_ecs_cluster.clusterName}` },
         ecr_repo_uri: { type: BuildEnvironmentVariableType.PLAINTEXT, value: `${props.crm_ecr_repository.repositoryUri}` }
       },
