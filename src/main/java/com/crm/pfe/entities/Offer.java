@@ -31,5 +31,9 @@ public class Offer {
     @JoinColumn(name="opportunity_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Opportunity opportunity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="customer_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Customer customer;
 
 }
