@@ -143,5 +143,10 @@ export class CRMBackendPipelineStack extends Stack {
 
     new CfnOutput(this, "image", { value: props.crm_ecr_repository.repositoryUri + ":latest" })
     new CfnOutput(this, 'loadbalancerdns', { value: props.fargateService.loadBalancer.loadBalancerDnsName });
+
+    new ssm.StringParameter(this, "CRM_LB_Backend-EXPORT", {
+      stringValue: props.fargateService.loadBalancer.loadBalancerDnsName,
+      parameterName: '/CRM/Backend/Backend_URL'
+    });
   }
 }
