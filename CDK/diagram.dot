@@ -1,0 +1,297 @@
+digraph "Diagram" {
+  splines = "ortho";
+  pad = "1.0";
+  nodesep = "0.60";
+  ranksep = "0.75";
+  fontname = "Sans-Serif";
+  fontsize = "15";
+  dpi = "200";
+  rankdir = "BT";
+  compound = "true";
+  fontcolor = "#222222";
+  edge [
+    color = "#D5871488",
+    penwidth = 2,
+    arrowhead = "dot",
+    arrowtail = "dot",
+  ];
+  node [
+    shape = "box",
+    style = "rounded",
+    fixedsize = true,
+    width = 1.7,
+    height = 1.7,
+    labelloc = "c",
+    imagescale = true,
+    fontname = "Sans-Serif",
+    fontsize = 8,
+    margin = 8,
+  ];
+  subgraph "App" {
+    subgraph "cluster-SubGraph.App" {
+      graph [
+        label = "App",
+        labelloc = "b",
+        labeljust = "l",
+        margin = "10",
+        fontsize = "16",
+        penwidth = "2",
+        pencolor = "#888888",
+        style = "filled,rounded",
+        fillcolor = "#f3f3f3",
+      ];
+      subgraph "cluster-SubGraph.CRM-Backend-Stack" {
+        graph [
+          label = "CRM-Backend-Stack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "CRM-Backend-Stack/crm-ecr-repository" [
+          label = " crm-ecr-repository",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_Amazon-Elastic-Container-Registry_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "CRM-Backend-Stack/CRM-ecs-cdk-vpc" [
+          label = " CRM-ecs-cdk-vpc",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Networking-Content/64/Arch_Amazon-Virtual-Private-Cloud_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "CRM-Backend-Stack/crm-ecs-cluster" [
+          label = " crm-ecs-cluster",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_Amazon-Elastic-Container-Service_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "CRM-Backend-Stack/ecs-taskrole-CRM-Backend-Stack" [
+          label = " ecs taskrole CRM\nBackend Stack",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+        "CRM-Backend-Stack/CRM-ecs-taskdef" [
+          label = " CRM-ecs-taskdef",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Resource/Res_Containers/Res_48_Dark/Res_Amazon-Elastic-Container-Service_Task_48_Dark_gen.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        subgraph "cluster-SubGraph.ecs-service" {
+          graph [
+            label = "ecs-service",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#d6d6d6",
+          ];
+          "CRM-Backend-Stack/ecs-service/LB" [
+            label = " LB",
+            fontsize = 12,
+            image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Networking-Content/64/Arch_Elastic-Load-Balancing_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+          subgraph "cluster-SubGraph.Service" {
+            graph [
+              label = "Service",
+              labelloc = "b",
+              labeljust = "l",
+              margin = "10",
+              fontsize = "16",
+              penwidth = "2",
+              pencolor = "#888888",
+              style = "filled,rounded",
+              fillcolor = "#c7c7c7",
+            ];
+            "CRM-Backend-Stack/ecs-service/Service/Service" [
+              label = " ECS Service Service",
+              fontsize = 12,
+              image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Resource/Res_Containers/Res_48_Dark/Res_Amazon-Elastic-Container-Service_Service_48_Dark_gen.png",
+              imagescale = "true",
+              imagepos = "tc",
+              penwidth = "0",
+              shape = "node",
+              fixedsize = "true",
+              labelloc = "b",
+              width = 2,
+              height = 2.266,
+            ];
+            "CRM-Backend-Stack/ecs-service/Service/SecurityGroup" [
+              label = " SecurityGroup",
+              fontsize = 12,
+              image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+              imagescale = "true",
+              imagepos = "tc",
+              penwidth = "0",
+              shape = "node",
+              fixedsize = "true",
+              labelloc = "b",
+              width = 2,
+              height = 2.266,
+            ];
+            "CRM-Backend-Stack/ecs-service/Service/TaskCount/Target" [
+              label = " Target",
+              fontsize = 12,
+            ];
+          }
+        }
+      }
+      subgraph "cluster-SubGraph.CRM-Backend-Pipeline-Stack" {
+        graph [
+          label = "CRM-Backend-Pipeline-Stack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "CRM-Backend-Pipeline-Stack/CodeBuildProject" [
+          label = " CodeBuildProject",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "CRM-Backend-Pipeline-Stack/buildStage" [
+          label = " buildStage",
+          fontsize = 12,
+        ];
+        "CRM-Backend-Pipeline-Stack/sourceStage" [
+          label = " sourceStage",
+          fontsize = 12,
+        ];
+        "CRM-Backend-Pipeline-Stack/deployStage" [
+          label = " deployStage",
+          fontsize = 12,
+        ];
+        "CRM-Backend-Pipeline-Stack/CRM-Backend-pipeline" [
+          label = " CRM-Backend-pipeline",
+          fontsize = 12,
+          image = "/usr/local/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_AWS-CodePipeline_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+      }
+    }
+  }
+  "CRM-Backend-Stack/CRM-ecs-taskdef" -> "CRM-Backend-Stack/ecs-taskrole-CRM-Backend-Stack" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/LB" -> "CRM-Backend-Stack/CRM-ecs-cdk-vpc" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/LB" -> "CRM-Backend-Stack/ecs-service/Service/SecurityGroup" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/Service" -> "CRM-Backend-Stack/CRM-ecs-cdk-vpc" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/Service" -> "CRM-Backend-Stack/crm-ecs-cluster" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/Service" -> "CRM-Backend-Stack/CRM-ecs-taskdef" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/Service" -> "CRM-Backend-Stack/ecs-service/LB" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/Service" -> "CRM-Backend-Stack/ecs-service/Service/SecurityGroup" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/SecurityGroup" -> "CRM-Backend-Stack/CRM-ecs-cdk-vpc" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/SecurityGroup" -> "CRM-Backend-Stack/ecs-service/LB" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/TaskCount/Target" -> "CRM-Backend-Stack/ecs-service/Service/Service" [
+    dir = "both",
+  ];
+  "CRM-Backend-Stack/ecs-service/Service/TaskCount/Target" -> "CRM-Backend-Stack/crm-ecs-cluster" [
+    dir = "both",
+  ];
+  "CRM-Backend-Pipeline-Stack/CodeBuildProject" -> "CRM-Backend-Stack/crm-ecr-repository" [
+    dir = "both",
+  ];
+  "CRM-Backend-Pipeline-Stack/CodeBuildProject" -> "CRM-Backend-Stack/crm-ecs-cluster" [
+    dir = "both",
+  ];
+  "CRM-Backend-Pipeline-Stack/CodeBuildProject" -> "CRM-Backend-Pipeline-Stack/CRM-Backend-pipeline" [
+    dir = "both",
+  ];
+  "CRM-Backend-Pipeline-Stack/CRM-Backend-pipeline" -> "CRM-Backend-Stack/ecs-service/Service/Service" [
+    dir = "both",
+  ];
+  "CRM-Backend-Pipeline-Stack/CRM-Backend-pipeline" -> "CRM-Backend-Stack/crm-ecs-cluster" [
+    dir = "both",
+  ];
+  "CRM-Backend-Pipeline-Stack/CRM-Backend-pipeline" -> "CRM-Backend-Pipeline-Stack/CodeBuildProject" [
+    dir = "both",
+  ];
+}
