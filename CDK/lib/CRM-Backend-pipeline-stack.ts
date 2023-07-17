@@ -58,19 +58,15 @@ export class CRMBackendPipelineStack extends Stack {
               'env',
               'export tag=latest',
               'echo "pass envirement variables on `date`"',
-              'echo "REACT_APP_REGION=$REGION" >> .env',
+              'echo Logging in to Amazon ECR...',
+              'aws ecr get-login-password --profile dhia | docker login --username AWS --password-stdin 888425790821.dkr.ecr.us-east-1.amazonaws.com'
             ]
           },
-          // install: {
-          //   "runtime-versions": { nodejs: 18 },
-          //   commands: ["cd CRM", "npm install --legacy-peer-deps"],
-          // },
           build: {
             commands: [
               'echo "Build started on `date`"',
               'cd BACKEND',
               `docker build -t $ecr_repo_uri:$tag .`,
-              '$(aws ecr get-login --no-include-email)',
               'docker push $ecr_repo_uri:$tag',
               'echo "Build finished on `date`"',
             ],
@@ -79,8 +75,8 @@ export class CRMBackendPipelineStack extends Stack {
             commands: [
               'echo "in post-build stage"',
               'cd ..',
-              "printf '[{\"name\":\"flask-app\",\"imageUri\":\"%s\"}]' $ecr_repo_uri:$tag > imagedefinitions.json",
-              "pwd; ls -al; cat imagedefinitions.json"
+              "printf '[{\"name\":\"CRM-Backend-APP\",\"imageUri\":\"%s\"}]' $ecr_repo_uri:$tag > imagedefinitions.json",
+              "cat imagedefinitions.json"
             ]
           }
         },
