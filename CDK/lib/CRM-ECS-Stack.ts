@@ -28,7 +28,7 @@ export class CRMEcsStack extends Stack {
     const vpc = new ec2.Vpc(this, 'CRM-ecs-cdk-vpc', {
       ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
       natGateways: 1,
-      maxAzs: 2
+      maxAzs: 2,
     });
 
     // ecs fargate cluster
@@ -36,7 +36,6 @@ export class CRMEcsStack extends Stack {
       clusterName: "crm-ecs-cluster",
       enableFargateCapacityProviders: true,
       vpc: vpc
-
     });
     const logging = new ecs.AwsLogDriver({
       streamPrefix: "CRM-Backend-ecs-logs"
@@ -65,17 +64,21 @@ export class CRMEcsStack extends Stack {
     });
 
     const taskDef = new ecs.FargateTaskDefinition(this, "CRM-ecs-taskdef", {
-      taskRole: taskrole
+      taskRole: taskrole,
+      cpu: 512,
+      memoryLimitMiB: 1024,
+      runtimePlatform: {
+        operatingSystemFamily: ecs.OperatingSystemFamily.LINUX,
+        cpuArchitecture: ecs.CpuArchitecture.X86_64
+      }
     });
 
     taskDef.addToExecutionRolePolicy(executionRolePolicy);
 
-    const baseImage = 'public.ecr.aws/amazonlinux/amazonlinux:2022'
+    const baseImage = 'docker.io/softwareimprove/crm_backend:amd64'
 
     const container = taskDef.addContainer('CRM-Backend-app', {
       image: ecs.ContainerImage.fromRegistry(baseImage),
-      memoryLimitMiB: 256,
-      // privileged: true,
       logging: logging,
     });
     container.addPortMappings({
@@ -87,14 +90,15 @@ export class CRMEcsStack extends Stack {
       cluster: this.crm_ecs_cluster,
       taskDefinition: taskDef,
       publicLoadBalancer: true,
-      desiredCount: 1,
+      desiredCount: 0,
       listenerPort: 80,
+      healthCheckGracePeriod: Duration.seconds(600),
     });
 
-    this.fargateService.service.autoScaleTaskCount({ maxCapacity: 1 }).scaleOnCpuUtilization('cpuscaling', {
+    this.fargateService.service.autoScaleTaskCount({ maxCapacity: 2 }).scaleOnCpuUtilization('cpuscaling', {
       targetUtilizationPercent: 80,
-      scaleInCooldown: Duration.seconds(60),
-      scaleOutCooldown: Duration.seconds(60)
+      scaleInCooldown: Duration.seconds(600),
+      scaleOutCooldown: Duration.seconds(600)
     });
   }
 }
