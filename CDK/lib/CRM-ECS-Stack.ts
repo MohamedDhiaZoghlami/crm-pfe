@@ -40,9 +40,6 @@ export class CRMEcsStack extends Stack {
     const logging = new ecs.AwsLogDriver({
       streamPrefix: "CRM-Backend-ecs-logs"
     });
-    // const clusteradmin = new iam.Role(this, 'adminrole', {
-    //   assumedBy: new iam.AccountRootPrincipal()
-    // });
 
     const taskrole = new iam.Role(this, `ecs-taskrole-${this.stackName}`, {
       roleName: `CRM-Backend-ecs-taskrole-${this.stackName}`,

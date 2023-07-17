@@ -27,6 +27,7 @@ interface CRMBackendPipelineStackProps extends StackProps {
 export class CRMBackendPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: CRMBackendPipelineStackProps) {
     super(scope, id, props);
+
     // const CRM_ASSETS_BUCKET_NAME = ssm.StringParameter.fromStringParameterAttributes(
     //   this,
     //   `CRM_ASSETS_BUCKET_NAME`,
@@ -59,7 +60,7 @@ export class CRMBackendPipelineStack extends Stack {
               'export tag=latest',
               'echo "pass envirement variables on `date`"',
               'echo Logging in to Amazon ECR...',
-              'aws ecr get-login-password --profile dhia | docker login --username AWS --password-stdin 888425790821.dkr.ecr.us-east-1.amazonaws.com'
+              'aws ecr get-login-password | docker login --username AWS --password-stdin 888425790821.dkr.ecr.us-east-1.amazonaws.com'
             ]
           },
           build: {
@@ -75,7 +76,7 @@ export class CRMBackendPipelineStack extends Stack {
             commands: [
               'echo "in post-build stage"',
               'cd ..',
-              "printf '[{\"name\":\"CRM-Backend-APP\",\"imageUri\":\"%s\"}]' $ecr_repo_uri:$tag > imagedefinitions.json",
+              "printf '[{\"name\":\"CRM-Backend-app\",\"imageUri\":\"%s\"}]' $ecr_repo_uri:$tag > imagedefinitions.json",
               "cat imagedefinitions.json"
             ]
           }
@@ -89,6 +90,7 @@ export class CRMBackendPipelineStack extends Stack {
         REACT_APP_REGION: { type: BuildEnvironmentVariableType.PLAINTEXT, value: this.region },
         cluster_name: { type: BuildEnvironmentVariableType.PLAINTEXT, value: `${props.crm_ecs_cluster.clusterName}` },
         ecr_repo_uri: { type: BuildEnvironmentVariableType.PLAINTEXT, value: `${props.crm_ecr_repository.repositoryUri}` }
+
       },
     });
     const githubToken = ssm.StringParameter.fromStringParameterAttributes(
