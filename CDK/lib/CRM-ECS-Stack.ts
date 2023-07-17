@@ -90,7 +90,7 @@ export class CRMEcsStack extends Stack {
       cluster: this.crm_ecs_cluster,
       taskDefinition: taskDef,
       publicLoadBalancer: true,
-      desiredCount: 0,
+      desiredCount: 1,
       listenerPort: 80,
       healthCheckGracePeriod: Duration.seconds(600),
     });
