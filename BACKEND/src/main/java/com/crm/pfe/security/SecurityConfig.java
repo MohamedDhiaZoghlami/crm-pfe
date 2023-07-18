@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().configurationSource(request -> {
             var cors = new CorsConfiguration();
-            cors.setAllowedOrigins(List.of("http://localhost:3000","https://d3i1pjpb68eaqn.cloudfront.net"));
+            cors.setAllowedOrigins(List.of("http://localhost:3000","https://d3i1pjpb68eaqn.cloudfront.net","http://crm-frontend-website.s3-website-us-east-1.amazonaws.com"));
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
             cors.setAllowedHeaders(List.of("*"));
             return cors;
