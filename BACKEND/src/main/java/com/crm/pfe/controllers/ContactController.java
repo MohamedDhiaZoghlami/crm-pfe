@@ -17,8 +17,8 @@ public class ContactController {
     private final ContactService contactService;
 
     @PostMapping("create/{customerId}")
-    public Contact createContact(@PathVariable Long customerId, @RequestBody Contact contact) {
-        return contactService.createContact(customerId,contact);
+    public Contact createContact(@PathVariable Long customerId, @RequestBody Contact contacts) {
+        return contactService.createContact(customerId,contacts);
     }
 
     @GetMapping("/all")
