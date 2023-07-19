@@ -9,7 +9,9 @@ import com.crm.pfe.entities.User;
 import com.crm.pfe.services.EmailSenderService;
 import com.crm.pfe.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -90,6 +92,25 @@ public class UserController {
         return userService.getAllUsers(pageable);
     }
 
+    @GetMapping("/commercial/chart")
+    public List<AgentScores> getAgentScores() {
+        List<User> agents = userService.getAllCommercialAgents();
+        List<AgentScores> agentScores = new ArrayList<>();
+        for(User agent : agents) {
+            String firstName = agent.getFirstName();
+            String lastName = agent.getLastName();
+            List<Integer> score = new ArrayList<>();
+            Random random = new Random();
+            for (int i = 0; i < 12; i++) {
+                int randomNumber = random.nextInt(20) + 1;
+                score.add(randomNumber);
+            }
+            AgentScores agentScores1 = new AgentScores(firstName,lastName,score);
+            agentScores.add(agentScores1);
+        }
+        return agentScores;
+    }
+
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -138,4 +159,13 @@ class RoleToUserForm {
 @Data
 class Username {
     private String username;
+}
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class AgentScores {
+    private String AgentFirstName;
+    private String AgentLastName;
+    private List<Integer> Scores;
 }

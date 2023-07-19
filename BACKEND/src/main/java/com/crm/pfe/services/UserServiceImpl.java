@@ -4,7 +4,9 @@ import com.crm.pfe.entities.Role;
 import com.crm.pfe.entities.User;
 import com.crm.pfe.repository.RoleRepository;
 import com.crm.pfe.repository.UserRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -98,3 +100,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return "User deleted successfully!";
     }
 }
+

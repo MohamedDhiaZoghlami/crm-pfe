@@ -24,4 +24,5 @@ public interface UserService {
     List<User> getAllCommercialAgents();
 
     String deleteUser(Long id);
+
 }
