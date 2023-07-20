@@ -76,6 +76,11 @@ public class UserController {
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
 
+    @PutMapping("/update")
+    public User updateUser(@RequestBody User user) {
+        return userService.updateUser(user,user.getUsername());
+    }
+
     @PostMapping("/role/addToUser")
     public ResponseEntity<?> saveRole(@RequestBody RoleToUserForm form) {
         userService.addRoleToUser(form.getUsername(), form.getRoleName());

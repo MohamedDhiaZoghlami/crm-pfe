@@ -25,4 +25,6 @@ public interface UserService {
 
     String deleteUser(Long id);
 
+    User updateUser(User user,String username);
+
 }
