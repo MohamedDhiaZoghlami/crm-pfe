@@ -54,6 +54,10 @@ public class UserController {
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
     @PostMapping("/getUser")
     public ResponseEntity<User> getUserDetails(@RequestBody Username username) {
         User user = userService.getUser(username.getUsername());

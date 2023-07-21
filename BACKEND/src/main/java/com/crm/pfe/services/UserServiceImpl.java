@@ -111,5 +111,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         usernow.setPhone(user.getPhone());
         return userRepository.save(usernow);
     }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+    }
 }
 

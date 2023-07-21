@@ -10,9 +10,12 @@ import com.crm.pfe.repository.OpportunityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,4 +91,27 @@ public class OpportunityServiceImpl implements OpportunityService{
         opportunityRepository.deleteById(id);
         return "Opp deleted :D";
     }
+    @Override
+    public void sendOpportunityReminders() {
+        Date currentDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, 3);
+        Date endDate = calendar.getTime();
+
+        List<Opportunity> opportunities = opportunityRepository.findByExpected_close_date(currentDate, endDate);
+
+        for (Opportunity opportunity : opportunities) {
+            System.out.println(opportunity.getName());
+            emailSenderService.sendEmail(opportunity.getAgent(), "Reminder: Opportunity Closing Soon",
+                    "The opportunity with Name " + opportunity.getName() +
+                            " is closing soon. Expected close date: " + opportunity.getExpected_close_date());
+        }
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?") // Run daily at midnight
+    public void scheduleOpportunityReminders() {
+        sendOpportunityReminders();
+    }
+
 }

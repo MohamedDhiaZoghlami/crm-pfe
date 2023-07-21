@@ -18,6 +18,8 @@ public interface UserService {
 
     User getUser(String username);
 
+    User getUserById(Long id);
+
     List<Role> getAllRoles();
     List<User> getUsers();
 
@@ -26,5 +28,6 @@ public interface UserService {
     String deleteUser(Long id);
 
     User updateUser(User user,String username);
+
 
 }

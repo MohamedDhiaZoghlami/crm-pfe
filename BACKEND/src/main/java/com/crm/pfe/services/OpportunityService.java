@@ -22,4 +22,5 @@ public interface OpportunityService {
     Opportunity updateOpportunity(Long id, Opportunity opportunity);
 
     String deleteOpportunity(Long id);
+    void sendOpportunityReminders();
 }
