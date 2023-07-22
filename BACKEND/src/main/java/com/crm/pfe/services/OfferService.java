@@ -17,5 +17,7 @@ public interface OfferService {
 
     List<Offer> getAllOffersByOpportunityId(Long id);
 
+    List<Offer> getOffersByAgent(String agent);
+
     String deleteOffer(Long id);
 }

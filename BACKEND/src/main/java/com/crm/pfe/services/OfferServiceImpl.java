@@ -60,4 +60,9 @@ public class OfferServiceImpl implements OfferService {
         offerRepository.deleteById(id);
         return "Offer Deleted successfully";
     }
+
+    @Override
+    public List<Offer> getOffersByAgent(String agent) {
+        return offerRepository.getOffersByAgentName(agent);
+    }
 }
