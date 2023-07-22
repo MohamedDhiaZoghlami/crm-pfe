@@ -23,6 +23,8 @@ public class Offer {
     private String files;
     @Enumerated(EnumType.STRING)
     private OfferStatus status;
+    private Date submitted_at;
+    private Date response_date;
     private String created_By;
     private String last_updated_By;
     private Date created_at;

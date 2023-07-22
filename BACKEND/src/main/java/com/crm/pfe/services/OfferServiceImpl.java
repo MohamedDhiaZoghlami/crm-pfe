@@ -46,6 +46,8 @@ public class OfferServiceImpl implements OfferService {
             o.setCreated_By(offer.getCreated_By());
             o.setLast_updated_By(offer.getLast_updated_By());
             o.setLast_updated_at(offer.getLast_updated_at());
+            o.setSubmitted_at(offer.getSubmitted_at());
+            o.setResponse_date(offer.getResponse_date());
             return offerRepository.save(o);
         }).orElseThrow(() -> new RuntimeException("offer Not Found"));
     }
