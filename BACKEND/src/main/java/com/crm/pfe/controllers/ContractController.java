@@ -3,6 +3,9 @@ package com.crm.pfe.controllers;
 import com.crm.pfe.entities.Contract;
 import com.crm.pfe.services.ContractService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,14 +16,15 @@ import java.util.List;
 public class ContractController {
     private final ContractService contractService;
 
-    @PostMapping("create/{idCompany}/{idCustomer}")
-    public Contract createContract(@PathVariable Long idCompany,@PathVariable Long idCustomer, @RequestBody Contract contract) {
-        return contractService.createContract(idCompany,idCustomer,contract);
+    @PostMapping("create/{idCustomer}/{idOpp}")
+    public Contract createContract(@PathVariable Long idCustomer,@PathVariable Long idOpp, @RequestBody Contract contract) {
+        return contractService.createContract(idCustomer,idOpp, contract);
     }
 
     @GetMapping("/all")
-    public List<Contract> getAllContracts() {
-        return contractService.getAllContracts();
+    public Page<Contract> getAllContracts(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page,10);
+        return contractService.getAllContracts(pageable);
     }
 
     @GetMapping("/{id}")

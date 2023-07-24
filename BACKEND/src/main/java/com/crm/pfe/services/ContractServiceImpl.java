@@ -1,13 +1,13 @@
 package com.crm.pfe.services;
 
-import com.crm.pfe.entities.Company;
-import com.crm.pfe.entities.Contact;
-import com.crm.pfe.entities.Contract;
-import com.crm.pfe.entities.Customer;
+import com.crm.pfe.entities.*;
 import com.crm.pfe.repository.CompanyRepository;
 import com.crm.pfe.repository.ContractRepository;
 import com.crm.pfe.repository.CustomerRepository;
+import com.crm.pfe.repository.OpportunityRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,20 +17,21 @@ import java.util.List;
 public class ContractServiceImpl implements ContractService {
     public final ContractRepository contractRepository;
     public final CustomerRepository customerRepository;
-    public final CompanyRepository companyRepository;
+    public final OpportunityRepository opportunityRepository;
 
     @Override
-    public Contract createContract(Long idCompany, Long idCustomer, Contract contract) {
+    public Contract createContract( Long idCustomer,Long idOpp ,Contract contract) {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(()->new RuntimeException("Customer Not Found!!"));
-        Company company = companyRepository.findById(idCompany).orElseThrow(()->new RuntimeException("Company not found!!!"));
         contract.setCustomer(customer);
-        contract.setCompany(company);
+        Opportunity opportunity = opportunityRepository.findById(idOpp).orElseThrow(()->new RuntimeException("Opportunity Not Found!!"));
+        contract.setOpportunity(opportunity);
         return contractRepository.save(contract);
     }
 
     @Override
-    public List<Contract> getAllContracts() {
-        return contractRepository.findAll();
+    public Page <Contract> getAllContracts(Pageable pageable) {
+
+        return contractRepository.findAll(pageable);
     }
 
     @Override

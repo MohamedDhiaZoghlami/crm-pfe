@@ -8,5 +8,6 @@ public enum OpportunityStage {
     Working_on,
     Negotiation,
     Closed_won,
-    Closed_lost
+    Closed_lost,
+    Contract_added,
 }
